@@ -1,8 +1,7 @@
 <soap:Envelope
     xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
     xmlns:v5="http://api.service.soap.emias.lanit.ru/v5/">
-    <soap:Header
-        xmlns:env="http://www.w3.org/2003/05/soap-envelope">
+    <soap:Header xmlns:env="http://www.w3.org/2003/05/soap-envelope">
         <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
             <wsse:UsernameToken
                 wsu:Id="UsernameToken-0E62EAA48AC6A742CE1545835667425109"
@@ -13,18 +12,10 @@
         </wsse:Security>
     </soap:Header>
     <soap:Body>
-        <v5:createAppointment>
-            <omsNumber>{appointment_params.oms_number}</omsNumber>
-            <birthDate>{appointment_params.birth_date}</birthDate>
-            <availableResourceId>{appointment_params.available_resource_id}</availableResourceId>
-            <complexResourceId>{appointment_params.complex_resource_id}</complexResourceId>
-            <startTime>{appointment_params.start_time.isoformat()}</startTime>
-            <endTime>{appointment_params.end_time.isoformat()}</endTime>
-            {f"<receptionTypeId>{appointment_params.reception_type_id}</receptionTypeId>"
-    if appointment_params.reception_type_id else ''}
-            {f"<referralId>{appointment_params.referral_id}</referralId>"
-    if appointment_params.referral_id else ''}
+        <v5:getAssignmentsInfo>
+            <omsNumber>{user_context.ehr.policy_number}</omsNumber>
+            <birthDate>{user_context.ehr.birth_date}</birthDate>
             <externalSystemId>LK</externalSystemId>
-        </v5:createAppointment>
+        </v5:getAssignmentsInfo>
     </soap:Body>
 </soap:Envelope>"""  # noqa: E501
